@@ -27,8 +27,7 @@ def main():
     try:
         binary_str = base64_to_binary(base64_string)
         tab_space_str = binary_to_tabs_spaces(binary_str)
-        print("Binary:", binary_str)
-        print("Tabs and Spaces:", tab_space_str)
+      
         
         save_to_file(tab_space_str, output_file)
         print("Tabs and Spaces output saved to", output_file)

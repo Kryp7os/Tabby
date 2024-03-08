@@ -1,4 +1,4 @@
-![Designer](https://github.com/Kryp7os/Tabby/assets/98974230/70329f1d-71e4-4c16-a75f-2ff238a4b884)
+![Screenshot 2024-03-08 105611](https://github.com/Kryp7os/Tabby/assets/98974230/ca013102-2609-41c1-a848-26a6ee4f0ca0)
 
 # Tabby
 

